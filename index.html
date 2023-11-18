@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Automation Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #login-form, #signup-form, #item-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Login Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#"  onclick="showForm('login-form')">Login</a></li>
+                <li><a href="#" onclick="showForm('signup-form')">Sign Up</a></li>
+                <li><a href="#" onclick="showForm('item-form')">Add Item</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="login-form">
+        <h2>Login</h2>
+        <form onsubmit="login(event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="signup-form">
+        <h2>Sign Up</h2>
+        <form onsubmit="signup(event)">
+            <label for="new-username">New Username:</label>
+            <input type="text" id="new-username" required>
+            <br>
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <br>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <div id="item-form">
+        <h2>Add Item</h2>
+        <form onsubmit="addItem(event)">
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" required>
+            <br>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+
+    <ul id="item-list"></ul>
+
+    <script>
+        let itemList = [];
+
+        function showForm(formId) {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('item-form').style.display = 'none';
+
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        function login(event) {
+            event.preventDefault();
+            console.log('Login logic goes here');
+        }
+
+        function signup(event) {
+            event.preventDefault();
+            console.log('Signup logic goes here');
+        }
+
+        function addItem(event) {
+            event.preventDefault();
+            const itemName = document.getElementById('item-name').value;
+
+            // Check if the item name already exists (case-sensitive)
+            if (itemList.includes(itemName)) {
+                alert('Item with the same name already exists. Please choose a different name.');
+            } else {
+                // Add the item to the list
+                itemList.push(itemName);
+
+                // Update the displayed item list
+                updateItemList();
+            }
+        }
+
+        function updateItemList() {
+            const itemListElement = document.getElementById('item-list');
+            itemListElement.innerHTML = '';
+
+            itemList.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                itemListElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
